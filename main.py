@@ -52,9 +52,11 @@ def generate_chessboard_image(board):
 
 
 # Example usage
-uci_moves = "e8d7 a2e6 d7d8 f7f8"
+# uci_moves = "e8d7 a2e6 d7d8 f7f8"
+uci_moves = "e8d7"
 # initial_position_fen = chess.STARTING_FEN
 initial_position_fen = "q3k1nr/1pp1nQpp/3p4/1P2p3/4P3/B1PP1b2/B5PP/5K2 b k - 0 17"
 
+# san_moves, final_board = uci_to_san(uci_moves, initial_position_fen)
 san_moves, final_board = uci_to_san(uci_moves, initial_position_fen)
 generate_chessboard_image(final_board)
