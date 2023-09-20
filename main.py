@@ -35,10 +35,10 @@ def svg_to_png(svg_content, output_file):
         png_data = cairosvg.svg2png(bytestring=svg_content)
 
         # Convert PNG data to a PIL Image object
-        # with Image.open(io.BytesIO(png_data)) as img:
-        #     img.save(output_file, 'PNG')
+        with Image.open(io.BytesIO(png_data)) as img:
+            img.save(output_file, 'PNG')
     
-        png_to_bmp(png_data, "output.bmp")
+        png_to_bmp("output.png", "output.bmp")
         return True
     except Exception as e:
         print(f"Error converting SVG to PNG: {str(e)}")
@@ -48,13 +48,7 @@ def svg_to_png(svg_content, output_file):
 def generate_chessboard_image(board):
     # Create an empty chessboard image
     board_image = chess.svg.board(board=board)
-    # with open('board_image.svg', 'w') as outputfile:
-    #     outputfile.write(board_image)
     svg_to_png(board_image,"output.png")
-    # TODO write logic to convert SVG to BMP
-    # # Convert the SVG image to BMP using PIL
-    # with Image.open(io.BytesIO(board_image.encode('utf-8'))) as img:
-    #     img.save("chessboard.bmp", "BMP")
 
 
 # Example usage
