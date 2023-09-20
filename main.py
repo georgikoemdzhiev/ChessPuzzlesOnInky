@@ -1,4 +1,6 @@
+import io
 import chess
+import chess.svg
 import chess.engine
 from PIL import Image, ImageDraw
 
@@ -16,12 +18,13 @@ def uci_to_san(uci_moves, initial_position_fen):
 
 def generate_chessboard_image(board):
     # Create an empty chessboard image
-    # board_image = chess.svg.board(board=board)
-    chess.svg.piece(chess.Piece.from_symbol("R"))  
-
-    # Convert the SVG image to BMP using PIL
-    with Image.open(io.BytesIO(board_image.encode('utf-8'))) as img:
-        img.save("chessboard.bmp", "BMP")
+    board_image = chess.svg.board(board=board)
+    with open('temp.svg', 'w') as outputfile:
+        outputfile.write(board_image)
+    # TODO write logic to convert SVG to BMP
+    # # Convert the SVG image to BMP using PIL
+    # with Image.open(io.BytesIO(board_image.encode('utf-8'))) as img:
+    #     img.save("chessboard.bmp", "BMP")
 
 # Example usage
 uci_moves = "e2e4 e7e5 g1f3"
