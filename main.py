@@ -3,7 +3,8 @@ import chess
 import chess.svg
 import chess.engine
 import cairosvg
-from PIL import Image, ImageDraw
+from PIL import Image
+from inky.auto import auto
 
 def uci_to_san(uci_moves, initial_position_fen):
     board = chess.Board(initial_position_fen)
@@ -36,6 +37,8 @@ def svg_to_png(svg_content, output_file):
 
         # Convert PNG data to a PIL Image object
         with Image.open(io.BytesIO(png_data)) as img:
+            display = auto()
+            display.set_image(img)
             img.save(output_file, 'PNG')
     
         png_to_bmp("output.png", "output.bmp")
