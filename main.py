@@ -7,11 +7,12 @@ from PIL import Image
 from inky.auto import auto
 
 WHITE = (255,255,255)
+PUZZLE_IMAGE_SIZE = (480,480)
 
 def display_image(image: Image):
     inky = auto() # requires i2c interface enabled
     blank_img = Image.new('RGB', inky.resolution,WHITE)
-    resized_img = image.resize(480,480) # make room for other content
+    resized_img = image.resize(PUZZLE_IMAGE_SIZE) # make room for other content
     blank_img.paste(resized_img, (0,0))
     inky.set_image(blank_img)
     inky.show()
