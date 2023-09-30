@@ -35,20 +35,22 @@ def display_all(image: Image, text_to_render, puzzle_url):
     else:    
         blank_img.show()
 
+def add_text(blank_img, text_to_render):
+    draw = ImageDraw.Draw(blank_img)
+    font_path = "fonts/NotoSans-Black.ttf"
+    font_size = 10
+    font = ImageFont.truetype(font_path, font_size)
+    x, y = 480 + PADDING, 0 + PADDING
+    text_color = (0, 0, 0)  # Black color (R, G, B)
+    draw.text((x, y), text_to_render, fill=text_color, font=font)
+
 def add_qr_code(puzzle_url, blank_img):
     qr = qrcode.QRCode(box_size=5)
     qr.add_data(puzzle_url)
     qr.make()
     qrcode_img =  qr.make_image()
     
-    blank_img.paste(qrcode_img, (474,80))
-
-def add_text(blank_img, text_to_render):
-    draw = ImageDraw.Draw(blank_img)
-    font = ImageFont.load_default() 
-    x, y = 480 + PADDING, 0 + PADDING
-    text_color = (0, 0, 0)  # Black color (R, G, B)
-    draw.text((x, y), text_to_render, fill=text_color, font=font)
+    blank_img.paste(qrcode_img, (474,100))
 
 def uci_to_san(uci_moves, initial_position_fen):
     board = chess.Board(initial_position_fen)
@@ -128,7 +130,7 @@ def main():
 
     debug_print(random_puzzle)
 
-    uci_moves = random_puzzle["Moves"].split()[0] # make only the first set of moves
+    uci_moves = random_puzzle["Moves"].split()[0] # make only the first set of moves from the puzzle
     initial_position_fen = random_puzzle["FEN"]
 
     san_moves, final_board = uci_to_san(uci_moves, initial_position_fen)
@@ -137,7 +139,9 @@ def main():
 
     print(f"San Moves: {san_moves}")
 
-    text_to_render = f"""Last Move: {san_moves}
+    last_move = str(san_moves[0])
+
+    text_to_render = f"""Last Move: {last_move}
 Rating: {random_puzzle["Rating"]}
 Themes:
 {random_puzzle["Themes"]}
