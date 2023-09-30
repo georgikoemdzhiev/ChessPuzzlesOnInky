@@ -127,7 +127,11 @@ def main():
 
     print(f"San Moves: {san_moves}")
 
-    text_to_render = f"Last Move: {san_moves}"
+    text_to_render = f"""Last Move: {san_moves}
+Rating: {random_puzzle["Rating"]}
+Themes: {random_puzzle["Themes"]}
+Game URL: {random_puzzle["GameUrl"]}
+"""
 
     display_image(png_image, text_to_render)
 
