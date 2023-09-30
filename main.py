@@ -82,17 +82,8 @@ def read_random_puzzle(csv_file_path, total_number_of_puzzles):
     random_puzzle = dict(zip(["PuzzleId", "FEN", "Moves", "Rating", "RatingDeviation", "Popularity", "NbPlays", "Themes", "GameUrl", "OpeningTags"], random_line.strip().split(',')))
 
     return random_puzzle
-     
-def main():
-    TOTAL_NUMBER_OF_PUZZLES = 3_466_049
-    url = "https://database.lichess.org/lichess_db_puzzle.csv.zst"
-    output_file_path = "lichess_db_puzzle.csv.zst"
-    output_csv_path = "lichess_db_puzzle.csv"  # Unzipped CSV file
 
-    download_chess_puzzles(url, output_file_path, output_csv_path)
-
-    random_puzzle = read_random_puzzle(output_csv_path, TOTAL_NUMBER_OF_PUZZLES)
-
+def debug_print(random_puzzle):
     if random_puzzle:
         print("Random Puzzle:")
         print("Puzzle ID:", random_puzzle["PuzzleId"])
@@ -107,6 +98,18 @@ def main():
         print("Opening Tags:", random_puzzle["OpeningTags"])
     else:
         print("No puzzles found in the CSV file.")
+        
+def main():
+    TOTAL_NUMBER_OF_PUZZLES = 3_466_049
+    url = "https://database.lichess.org/lichess_db_puzzle.csv.zst"
+    output_file_path = "lichess_db_puzzle.csv.zst"
+    output_csv_path = "lichess_db_puzzle.csv"  # Unzipped CSV file
+
+    download_chess_puzzles(url, output_file_path, output_csv_path)
+
+    random_puzzle = read_random_puzzle(output_csv_path, TOTAL_NUMBER_OF_PUZZLES)
+
+    debug_print(random_puzzle)
 
     uci_moves = random_puzzle["Moves"].split()[0] # make only the first set of moves
     initial_position_fen = random_puzzle["FEN"]
