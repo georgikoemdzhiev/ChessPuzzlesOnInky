@@ -31,8 +31,10 @@ Pillow==10.0.1
 py-cpuinfo==9.0.0
 pycparser==2.21
 pyparsing==3.1.1
+pypng==0.20220715.0
 python-dateutil==2.8.2
 pytz==2023.3.post1
+qrcode==7.4.2
 ratelim==0.1.6
 requests==2.31.0
 RPi.GPIO==0.7.1
@@ -42,6 +44,7 @@ smbus2==0.4.3
 soupsieve==2.5
 spidev==3.6
 tinycss2==1.2.1
+typing_extensions==4.8.0
 tzdata==2023.3
 urllib3==2.0.5
 webencodings==0.5.1

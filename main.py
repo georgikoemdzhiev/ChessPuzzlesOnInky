@@ -5,6 +5,7 @@ import chess
 import chess.svg
 import chess.engine
 import cairosvg
+import qrcode
 from PIL import Image, ImageDraw, ImageFont
 from inky.auto import auto
 from inky.eeprom import read_eeprom
@@ -16,14 +17,15 @@ PADDING = 5
 def is_inky_connected():
     return read_eeprom() != None
 
-def display_image(image: Image, text_to_render):
+def display_all(image: Image, text_to_render, puzzle_url):
     resolution = (800,480)
     blank_img = Image.new('RGB', resolution, "white")
 
     add_text(blank_img, text_to_render)
+    add_qr_code(puzzle_url, blank_img)
 
-    resized_img = image.resize(PUZZLE_IMAGE_SIZE) # make room for other content
-    blank_img.paste(resized_img, (0,0))
+    resized_puzzle_img = image.resize(PUZZLE_IMAGE_SIZE) # make room for other content
+    blank_img.paste(resized_puzzle_img, (0,0))
 
     if(is_inky_connected()):
         inky = auto() # requires i2c interface enabled
@@ -32,6 +34,14 @@ def display_image(image: Image, text_to_render):
         inky.show()
     else:    
         blank_img.show()
+
+def add_qr_code(puzzle_url, blank_img):
+    qr = qrcode.QRCode(box_size=5)
+    qr.add_data(puzzle_url)
+    qr.make()
+    qrcode_img =  qr.make_image()
+    
+    blank_img.paste(qrcode_img, (474,80))
 
 def add_text(blank_img, text_to_render):
     draw = ImageDraw.Draw(blank_img)
@@ -132,10 +142,9 @@ Rating: {random_puzzle["Rating"]}
 Themes:
 {random_puzzle["Themes"]}
 Game URL:
-{random_puzzle["GameUrl"]}
 """
-
-    display_image(png_image, text_to_render)
+    puzzle_url = random_puzzle["GameUrl"]
+    display_all(png_image, text_to_render, puzzle_url)
 
 
 if __name__ == "__main__":
