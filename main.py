@@ -5,22 +5,23 @@ import chess
 import chess.svg
 import chess.engine
 import cairosvg
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFont
 from inky.auto import auto
 from inky.eeprom import read_eeprom
 from puzzles_downloader import FileDownloader
-import zstandard as zstd
-import shutil
 
-WHITE = (255,255,255)
 PUZZLE_IMAGE_SIZE = (480,480)
+PADDING = 5
 
 def is_inky_connected():
     return read_eeprom() != None
 
-def display_image(image: Image):
+def display_image(image: Image, text_to_render):
     resolution = (800,480)
-    blank_img = Image.new('RGB', resolution,WHITE)
+    blank_img = Image.new('RGB', resolution, "white")
+
+    add_text(blank_img, text_to_render)
+
     resized_img = image.resize(PUZZLE_IMAGE_SIZE) # make room for other content
     blank_img.paste(resized_img, (0,0))
 
@@ -31,6 +32,13 @@ def display_image(image: Image):
         inky.show()
     else:    
         blank_img.show()
+
+def add_text(blank_img, text_to_render):
+    draw = ImageDraw.Draw(blank_img)
+    font = ImageFont.load_default() 
+    x, y = 480 + PADDING, 0 + PADDING
+    text_color = (0, 0, 0)  # Black color (R, G, B)
+    draw.text((x, y), text_to_render, fill=text_color, font=font)
 
 def uci_to_san(uci_moves, initial_position_fen):
     board = chess.Board(initial_position_fen)
@@ -68,7 +76,6 @@ def download_chess_puzzles(url, output_file_path, output_csv_path):
         print(f"Unzipped to {output_csv_path}")
     else:
         print(f"Failed to unzip {output_file_path}")
-
     
 def read_random_puzzle(csv_file_path, total_number_of_puzzles):
 
@@ -98,7 +105,7 @@ def debug_print(random_puzzle):
         print("Opening Tags:", random_puzzle["OpeningTags"])
     else:
         print("No puzzles found in the CSV file.")
-        
+
 def main():
     TOTAL_NUMBER_OF_PUZZLES = 3_466_049
     url = "https://database.lichess.org/lichess_db_puzzle.csv.zst"
@@ -120,7 +127,9 @@ def main():
 
     print(f"San Moves: {san_moves}")
 
-    display_image(png_image)
+    text_to_render = f"Last Move: {san_moves}"
+
+    display_image(png_image, text_to_render)
 
 
 if __name__ == "__main__":
