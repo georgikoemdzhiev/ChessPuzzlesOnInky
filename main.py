@@ -38,7 +38,7 @@ def display_all(image: Image, text_to_render, puzzle_url):
 def add_text(blank_img, text_to_render):
     draw = ImageDraw.Draw(blank_img)
     font_path = "fonts/NotoSans-Black.ttf"
-    font_size = 10
+    font_size = 14
     font = ImageFont.truetype(font_path, font_size)
     x, y = 480 + PADDING, 0 + PADDING
     text_color = (0, 0, 0)  # Black color (R, G, B)
