@@ -134,6 +134,10 @@ def main():
     initial_position_fen = random_puzzle["FEN"]
 
     san_moves, final_board = uci_to_san(uci_moves, initial_position_fen)
+
+    if final_board.turn == chess.BLACK:
+        final_board.apply_transform(chess.flip_vertical)
+
     board_image = generate_chessboard_image(final_board)
     png_image = svg_to_png(board_image)
 
