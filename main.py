@@ -118,6 +118,14 @@ def debug_print(random_puzzle):
     else:
         print("No puzzles found in the CSV file.")
 
+def get_puzzle_info(random_puzzle, last_move):
+    return f"""Last Move: {last_move}
+Rating: {random_puzzle["Rating"]}
+Themes:
+{random_puzzle["Themes"]}
+Game URL:
+"""
+
 def main():
     TOTAL_NUMBER_OF_PUZZLES = 3_466_049
     url = "https://database.lichess.org/lichess_db_puzzle.csv.zst"
@@ -131,6 +139,7 @@ def main():
     debug_print(random_puzzle)
 
     uci_moves = random_puzzle["Moves"].split()[0] # make only the first set of moves from the puzzle
+    puzzle_url = random_puzzle["GameUrl"]
     initial_position_fen = random_puzzle["FEN"]
 
     san_moves, final_board = uci_to_san(uci_moves, initial_position_fen)
@@ -145,13 +154,8 @@ def main():
 
     last_move = str(san_moves[0])
 
-    text_to_render = f"""Last Move: {last_move}
-Rating: {random_puzzle["Rating"]}
-Themes:
-{random_puzzle["Themes"]}
-Game URL:
-"""
-    puzzle_url = random_puzzle["GameUrl"]
+    text_to_render = get_puzzle_info(random_puzzle, last_move)
+    
     display_all(png_image, text_to_render, puzzle_url)
 
 
