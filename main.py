@@ -75,9 +75,10 @@ def svg_to_png(svg_content) -> Image:
     except Exception as e:
         raise Exception(f"Error converting SVG to PNG: {str(e)}")
 
-def generate_chessboard_image(board):
+def generate_chessboard_image(board: chess.BaseBoard, last_move: str):
     # Create an empty chessboard image
-    board_image = chess.svg.board(board=board)
+    move = chess.Move.from_uci(last_move)
+    board_image = chess.svg.board(board=board, lastmove=move)
     return board_image
 
 def download_chess_puzzles(url, output_file_path, output_csv_path):
@@ -118,8 +119,9 @@ def debug_print(random_puzzle):
     else:
         print("No puzzles found in the CSV file.")
 
-def get_puzzle_info(random_puzzle, last_move):
-    return f"""Last Move: {last_move}
+def get_puzzle_info(random_puzzle, last_move, turn):
+    return f"""{turn} to play
+Last Move: {last_move}
 Rating: {random_puzzle["Rating"]}
 Themes:
 {random_puzzle["Themes"]}
@@ -138,24 +140,26 @@ def main():
 
     debug_print(random_puzzle)
 
-    uci_moves = random_puzzle["Moves"].split()[0] # make only the first set of moves from the puzzle
+    uci_move = random_puzzle["Moves"].split()[0] # take 1, we only want to make the first set of moves from the puzzle
     puzzle_url = random_puzzle["GameUrl"]
     initial_position_fen = random_puzzle["FEN"]
 
-    san_moves, final_board = uci_to_san(uci_moves, initial_position_fen)
+    san_moves, final_board = uci_to_san(uci_move, initial_position_fen)
 
-    # TODO that doesn't quite work, it messes up the board's coordinates when it's White's turn
-    # if final_board.turn == chess.BLACK:
-    #     final_board.apply_transform(chess.flip_vertical)  
+    turn = "White"
+    if final_board.turn == chess.BLACK:
+        # TODO that doesn't quite work, it messes up the board's coordinates when it's White's turn
+        # final_board.apply_transform(chess.flip_vertical)  
+        turn = "Black"
 
-    board_image = generate_chessboard_image(final_board)
+    board_image = generate_chessboard_image(final_board, uci_move)
     png_image = svg_to_png(board_image)
 
     print(f"San Moves: {san_moves}")
 
     last_move = str(san_moves[0])
 
-    text_to_render = get_puzzle_info(random_puzzle, last_move)
+    text_to_render = get_puzzle_info(random_puzzle, last_move, turn)
     
     display_all(png_image, text_to_render, puzzle_url)
 
