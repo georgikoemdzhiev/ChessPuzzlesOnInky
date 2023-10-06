@@ -38,3 +38,12 @@ If you want to print a 3D case for your Inky Impression 7.3" display, you can us
 - [Inky Impression 7.3" e-Paper Frame/Case](https://www.printables.com/en/model/585713-inky-impression-73-e-paper-framecase)
 
 This project offers an enjoyable way to enhance your chess skills and adds interactivity with the Inky Impression display. Have fun with your chess puzzles!
+
+## Troubleshotting
+
+If you get this error when trying to run the `main.py` script:
+
+```log
+ImportError: libopenblas.so.0: cannot open shared object file: No such file or directory
+```
+You need to install `libopenblas-dev` package -> `sudo apt-get install libopenblas-dev`
