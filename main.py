@@ -11,7 +11,7 @@ from inky.auto import auto
 from inky.eeprom import read_eeprom
 from puzzles_downloader import FileDownloader
 
-PUZZLE_IMAGE_SIZE = (480,480)
+PUZZLE_IMAGE_SIZE = 480
 PADDING = 5
 
 def is_inky_connected():
@@ -24,8 +24,7 @@ def display_all(image: Image, text_to_render, puzzle_url):
     add_text(blank_img, text_to_render)
     add_qr_code(puzzle_url, blank_img)
 
-    resized_puzzle_img = image.resize(PUZZLE_IMAGE_SIZE) # make room for other content
-    blank_img.paste(resized_puzzle_img, (0,0))
+    blank_img.paste(image, (0,0))
 
     if(is_inky_connected()):
         inky = auto() # requires i2c interface enabled
@@ -78,7 +77,7 @@ def svg_to_png(svg_content) -> Image:
 def generate_chessboard_image(board: chess.BaseBoard, last_move: str):
     # Create an empty chessboard image
     move = chess.Move.from_uci(last_move)
-    board_image = chess.svg.board(board=board, lastmove=move)
+    board_image = chess.svg.board(board=board, lastmove=move, size=PUZZLE_IMAGE_SIZE)
     return board_image
 
 def download_chess_puzzles(url, output_file_path, output_csv_path):
