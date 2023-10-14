@@ -22,6 +22,9 @@ This project offers several useful features:
 
 > Note: If you use this script with other Inky ePaper displays (e.g., Inky Impression 4"), you can adjust text-rendering coordinates in the `add_text` and `add_qr_code` functions.
 
+## Running the script
+You can manually run the script by simply executing `python main.py`.
+
 ## Screenshots
 Check out some screenshots from this project:
 
