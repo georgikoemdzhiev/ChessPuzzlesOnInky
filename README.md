@@ -22,6 +22,9 @@ This project offers several useful features:
 
 > Note: If you use this script with other Inky ePaper displays (e.g., Inky Impression 4"), you can adjust text-rendering coordinates in the `add_text` and `add_qr_code` functions.
 
+## Running the script
+You can manually run the script by simply executing `python main.py`.
+
 ## Screenshots
 Check out some screenshots from this project:
 
@@ -47,3 +50,8 @@ If you get this error when trying to run the `main.py` script:
 ImportError: libopenblas.so.0: cannot open shared object file: No such file or directory
 ```
 You need to install `libopenblas-dev` package -> `sudo apt-get install libopenblas-dev`
+
+### Raspberri Pi Zero
+
+#### Increasing swap
+The default `swap` size of the Pi Zero - `128MB` (on Raspbian OS for example) is not enough to run the script. If you attempt to run the script with 128MB, the OS just kills the process when there is not enough memory. That can be easily fixed by increasing the swap memory to `1024MB`. Follow the steps listed [here](https://diyusthad.com/2022/01/how-to-increase-swap-size-in-raspberry-pi.html) on how to do that.
