@@ -17,4 +17,8 @@ else
     (crontab -l ; echo "0 8 * * * $PYTHON_CMD") | crontab -
 fi
 
-echo "Cron job setup completed successfully"
+# Get the next scheduled run time
+next_run_time=$(date -d "$(crontab -l | grep "$PYTHON_CMD" | awk '{print $1, $2, $3, $4, $5}')" "+%A, %B %d, %Y %H:%M:%S")
+
+echo "Cron job successfully set up."
+echo "Next scheduled run: $next_run_time"
