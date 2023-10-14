@@ -5,7 +5,7 @@ This project allows you to display random chess puzzles on an Inky Impression 7.
 ## Requirements
 Before you begin, make sure you have the following requirements in place:
 
-- **Raspbian OS**: Ensure you are using the Raspberry Pi's operating system.
+- **Raspbian OS**: Ensure you are using the Raspberry Pi's operating system. It's recomented that you use Raspbian Lite as it consumes less power but that one does not come with a Desktop environmnet so be ready to setup the pi over `ssh` if you go with lite
 - **Enabled IC2 and SPI Interfaces**: You can enable these interfaces using the `raspi-config` CLI. Refer to the [official documentation](https://www.raspberrypi.com/documentation/computers/configuration.html) for guidance on using this tool.
 - **Inky Impression 7.3" eInk Display**: You can purchase this display from [the official site](https://shop.pimoroni.com/products/inky-impression-7-3?variant=40512683376723).
 - **Compatible Raspberry Pi**: Any Raspberry Pi with a 40-pin GPIO header will work for this project.
