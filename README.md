@@ -23,7 +23,16 @@ This project offers several useful features:
 > Note: If you use this script with other Inky ePaper displays (e.g., Inky Impression 4"), you can adjust text-rendering coordinates in the `add_text` and `add_qr_code` functions.
 
 ## Running the script
-You can manually run the script by simply executing `python main.py`.
+
+### Manual run
+1. Change directory to the root of the project
+2. Execute `python main.py`
+
+### Scheduled run
+
+If you like to schedule the script to once twice a day (at 8am):
+1. Change directory to the root of the project
+2. Run the `install_cron_job.sh` script
 
 ## Screenshots
 Check out some screenshots from this project:
