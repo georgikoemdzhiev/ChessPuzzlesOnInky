@@ -24,6 +24,10 @@ This project offers several useful features:
 
 ## Running the script
 
+Before running `main.py` make sure that you have installed all of the dependencie. You can do that by:
+1. cd to the root folder of the project
+2. run `pip install -r requirements.txt`
+
 ### Manual run
 1. Change directory to the root of the project
 2. Execute `python main.py`
