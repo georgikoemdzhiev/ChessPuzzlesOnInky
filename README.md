@@ -39,13 +39,12 @@ If you like to schedule the script to once twice a day (at 8am):
 2. Run the `install_cron_job.sh` script
 
 ## Screenshots
-Check out some screenshots from this project:
-
-- **Puzzle 1**
-  ![Puzzle 1](./screenshots/puzzle1.jpg)
-  
-- **Puzzle 2**
-  ![Puzzle 2](./screenshots/puzzle2.jpg)
+<table style="padding:10px">
+  <tr>
+    <td><img src="./screenshots/puzzle2.jpg" alt="puzzle2" width = 300px></td>
+    <td><img src="./screenshots/puzzle1.jpg"  alt="puzzle1" width = 279px></td>
+  </tr>
+</table>
 
 ## 3D Case
 If you want to print a 3D case for your Inky Impression 7.3" display, you can use the following resources:
