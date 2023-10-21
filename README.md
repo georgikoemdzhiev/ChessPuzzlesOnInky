@@ -41,8 +41,8 @@ If you like to schedule the script to once twice a day (at 8am):
 ## Screenshots
 <table style="padding:10px">
   <tr>
-    <td><img src="./screenshots/puzzle2.jpg" alt="puzzle2" width = 300px></td>
-    <td><img src="./screenshots/puzzle1.jpg"  alt="puzzle1" width = 279px></td>
+    <td><img src="./screenshots/puzzleTwo.jpg" alt="puzzleTwo" width = 300px></td>
+    <td><img src="./screenshots/puzzleOne.jpg"  alt="puzzleOne" width = 279px></td>
   </tr>
 </table>
 
